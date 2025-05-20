@@ -30,7 +30,7 @@ img_sphn = img_sphn.resize((10000,10000))
 with st.container():
     col_1, col_2 = st.columns((1,10), gap="small")
     with col_1:
-        st.image(img_sphn, width=900, use_container_width=True)
+        st.image(img_sphn, width=900)
     with col_2:
         st.markdown(
             "<h4 style='text-align: center;'>Project Based Learning: Burst Time Estimation Using Streamlit.io</h4>",
