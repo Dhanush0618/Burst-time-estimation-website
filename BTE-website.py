@@ -23,7 +23,8 @@ def load_lottie(url):
     
 lottie_coding = load_lottie("https://lottie.host/6dbbceae-dcb1-4090-96bb-a27fdc3780d9/z5M0BKqkDg.json")
 lottie_code = load_lottie("https://lottie.host/83bc7e5b-04bb-430e-90de-0cd3e9bd9495/ery6ZcH6sH.json")
-img_sphn = Path("image") / "sphn-image.png"
+img_path = Path("image") / "sphn-image.png"
+img_sphn = Image.open(img_path)
 img_sphn = img_sphn.resize((10000,10000))
 
 with st.container():
