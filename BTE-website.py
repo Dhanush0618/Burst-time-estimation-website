@@ -20,33 +20,37 @@ def load_lottie(url):
     if r.status_code != 200:
         return None
     return r.json()
-    
+
+# Assets loading
 lottie_coding = load_lottie("https://lottie.host/6dbbceae-dcb1-4090-96bb-a27fdc3780d9/z5M0BKqkDg.json")
 lottie_code = load_lottie("https://lottie.host/83bc7e5b-04bb-430e-90de-0cd3e9bd9495/ery6ZcH6sH.json")
 img_path = Path("image") / "sphn-image.png"
 img_sphn = Image.open(img_path)
 img_sphn = img_sphn.resize((10000,10000))
 
+# Information
 with st.container():
-    col_1, col_2 = st.columns((1,10), gap="small")
+    col_1, col_2 = st.columns((1,10))
     with col_1:
-        st.image(img_sphn, width=None)
+        st.image(img_sphn, width=900, use_container_width=True)
     with col_2:
         st.markdown(
-            "<h4 style='text-align: center;'>Project Based Learning: Burst Time Estimation Using Streamlit.io</h4>",
+            "<h4 style='text-align: center;'><b>Project Based Learning: Burst Time Estimation </b></h4>",
         unsafe_allow_html=True)
         st.markdown(
             "<h1 style='text-align: center;'>Welcome to our Website 🙏</h1.",
             unsafe_allow_html=True)
-    
+        
 with st.container():
     txt_col, gif_col = st.columns((2,1))
     with txt_col:
-        st.subheader("We are using :red[streamlit/Python] to create a website for :red[Predicting] the burst time of processes")
+        st.subheader("We are using :red[streamlit/Python] to create a website for :red[Predicting] the burst time of processes.")
         st.write("""There are many ways to predict the burst time of a process:""")
         st.write("1. Using the EXPONENTIAL AVERAGING method:")
-        st.write("""Predict the burst time of the next process using the previuos burst time.   :cyan[**Formula is: e(t+1) = ( a * a[t-1] ) + ( (1-a) * e(t) )**]
-                 \nwhere e(t) is the predicted burst time at time t, a(t) is the actual burst time at time t, and alpha is a smoothing factor (typically between 0 and 1).""")
+        st.markdown("Predict the burst time of the next process using the previuos burst time.")
+        st.markdown('<span style="color: cyan;"><b>Formula for Exponential Averaging Method is:</b></span>', unsafe_allow_html=True)
+        st.latex(r"e_{p+1} = \alpha \cdot act_{p} + (1 - \alpha) \cdot e_p")
+        st.write("where e(p) is the predicted burst time of a process(p) at time t, \nact(p) is the actual burst time of a process(p) at time t, \nand alpha is a smoothing factor (typically between 0 and 1).")
         st.write("[Learn more about EXPONENTIAL AVERAGING >](https://www.scribd.com/presentation/834380705/Burst-Time-Prediction:~:text=Burst%20Time%20Prediction-,The%20document%20discusses%20Shortest%20Job%20First%20(SJF)%20scheduling%2C%20which,burst%20times%20using%20exponential%20averaging)")
         st.write("2. Using Machine Learning:")
         st.write("Machine learning offers a powerful approach to estimate the CPU burst time of processes, a crucial element for efficient CPU scheduling algorithms like SJF (Shortest Job First) and SRTF (Shortest Remaining Time First). By leveraging historical data and process attributes, ML models can predict burst times more accurately than traditional methods like exponential averaging. ")
@@ -62,15 +66,15 @@ with st.container():
         st.write("TO KNOW MORE, [Click Here >](https://www.researchgate.net/publication/341481948_Revised_Formula_for_Estimating_CPU-Burst)")
         
     with gif_col:
-
         st.lottie(lottie_coding, height=700, key="coding_2")
-                
-        
+
+#Burst-time Python implementation   
 with st.container():
     st.write("---")
     lt_col, rt_col = st.columns((2,1))
     with lt_col:
         st.header("The code for 'BURST TIME ESTIMATION' is:")
+        st.write("This code is for calculating Burst time of a process, implemented in Python.")
         code="""
             def estimate(act_bt,a,e_0):
                 pred_bt=[e_0]
@@ -102,11 +106,13 @@ with st.container():
     with rt_col:
         st.lottie(lottie_code, height=900, key="coding")
         
+# Burst-time Estimator code
+st.write("---")
 with st.container():
     lft_col, rgt_col = st.columns((1,2))
     with lft_col:
         st.title("Burst Time Predictor (Exponential Averaging)")
-        st.markdown("Formula: `e(t+1) = α × t + (1 - α) × e(t)`")
+        st.markdown("Formula: `e(p+1) = α × act[p] + (1 - α) × e(p)`")
         
         act_burst = st.number_input("Actual Burst Time (t)", min_value=0.0, max_value=10.0, format="%.2f")
         prev_estimate = st.number_input("Previous Estimated Burst Time (e(t))", min_value=0.0, max_value=10.0, format="%.2f")
@@ -117,6 +123,7 @@ with st.container():
             next_estimate = alpha * act_burst + (1 - alpha) * prev_estimate
             st.success(f"Predicted Next Burst Time: {next_estimate:.2f}")
             st.balloons()
+    # Graph
     with rgt_col:
         labels = ['Prev_BT (e(t))', 'Act_BT (t)', 'Pred_BT (e(t+1))']
         values = [prev_estimate, act_burst, next_estimate]
@@ -127,7 +134,8 @@ with st.container():
         ax.set_title('Burst Time Prediction Using Exponential Averaging')
         ax.bar_label(bars, fmt='%.2f')
         st.pyplot(fig)
-
+        
+# Credits
 with st.container():
     st.write("---")
     st.subheader("Presented by:\nDHANUSH KUMAR (23N81A67C6)")
@@ -137,6 +145,7 @@ with st.container():
     st.write("AKSHAY KUMAR (23N81A6770)")
     st.write("##")
     st.subheader("\u00A9 Group no.11. All rights are reserved.")
+
 
     
         
